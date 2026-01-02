@@ -20,7 +20,9 @@ exams = ['prarambh', 'parichay', 'pravesh', 'pravin']
 def get_quiz_number():
     """
     Calculate quiz number based on Monday/Thursday schedule starting first week of January.
-    Returns the quiz number for the current or next quiz.
+    Returns the quiz number for the current or next quiz, or None if:
+    - Before the first quiz of the year, or
+    - Quiz number is greater than 14
     """
     today = datetime.now()
     current_year = today.year
@@ -34,9 +36,9 @@ def get_quiz_number():
     
     # Calculate days since first Monday
     days_since_start = (today - first_monday).days
-    
     if days_since_start < 0:
-        return 1  # Before first quiz
+        print(f'Before first quiz of the year...')
+        return None  # Before first quiz of the year
     
     # Calculate which week we're in (0-indexed)
     week_number = days_since_start // 7
@@ -53,6 +55,11 @@ def get_quiz_number():
         quiz_no = (week_number * 2) + 2
     else:  # Friday, Saturday, Sunday
         quiz_no = ((week_number + 1) * 2) + 1  # Next quiz is next Monday
+    
+    # Don't send quizzes beyond quiz 14
+    if quiz_no > 14:
+        print(f'Quiz number {quiz_no} is past number of available quizzes...')
+        return None
     
     return quiz_no
 
