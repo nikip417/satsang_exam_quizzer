@@ -140,8 +140,10 @@ async def process_exam_quizzes(exam_name, df):
             continue
         
         # Build quiz_info dictionary from row data
+        # Sequential numbering: Quiz 1 = 1-7, Quiz 2 = 8-14, Quiz 3 = 15-21, etc.
+        question_number = ((row["quiz_num"] - 1) * 7) + idx + 1
         quiz_info = {
-            'question': f'{row["quiz_num"] + idx}. {row["question"]}',
+            'question': f'{question_number}. {row["question"]}',
             'options': options,
             'answer_index': answer_index,
             'explanation': f'{row["Book Name"]} - Chapter {row["chapter_no"]}: {row["Chapter Name"]} - Page {row["page_no"]}'
