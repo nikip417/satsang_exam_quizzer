@@ -70,7 +70,7 @@ def load_quiz_data(quiz_no):
     print(f'Loading quiz data for quiz number {quiz_no}...')
     for exam_name in exams:
         # Read the CSV file
-        df = pd.read_csv(f'master_quiz_doc_{exam_name}.csv')
+        df = pd.read_csv(f'quiz_data/master_quiz_doc_{exam_name}.csv')
         
         # Filter rows where quiz_number column matches quiz_no
         filtered_df = df[df['quiz_num'] == quiz_no]

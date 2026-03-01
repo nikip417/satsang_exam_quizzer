@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz Channel Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --card-bg: #fff;
+      --border: #dee2e6;
+      --primary: #2c3e50;
+      --accent: #3498db;
+      --muted: #6c757d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--primary);
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; color: var(--primary); }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+    section { margin-bottom: 2rem; }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .chart-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .chart-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      position: relative;
+      height: 320px;
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      min-width: 140px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .card-label { font-size: 0.85rem; color: var(--muted); text-transform: capitalize; }
+    .card-value { font-size: 1.5rem; font-weight: 600; color: var(--accent); }
+    .total-card .card-value { color: var(--primary); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    tr:hover { background: rgba(52, 152, 219, 0.06); }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz Channel Analytics</h1>
+    <p class="meta">Report generated on March 01, 2026 at 04:25 UTC</p>
+
+    <section>
+      <div class="section-title">Total subscribers per channel</div>
+      <div class="cards">
+        <div class="card total-card">
+          <span class="card-label">Total (all channels)</span>
+          <span class="card-value">9,188</span>
+        </div>
+        
+        <div class="card">
+          <span class="card-label">prarambh</span>
+          <span class="card-value">2,997</span>
+        </div>
+        <div class="card">
+          <span class="card-label">parichay</span>
+          <span class="card-value">1,636</span>
+        </div>
+        <div class="card">
+          <span class="card-label">pravesh</span>
+          <span class="card-value">2,180</span>
+        </div>
+        <div class="card">
+          <span class="card-label">pravin</span>
+          <span class="card-value">2,375</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Week-over-week: average quiz responses</div>
+      <p class="chart-desc">Average responses per poll by quiz week (first Monday of January = Week 1).</p>
+      <div class="chart-wrap">
+        <canvas id="chartWeekOverWeek" aria-label="Week over week average quiz responses"></canvas>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">Average quiz responses per exam per day</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Exam</th>
+            <th>Date</th>
+            <th class="num">Avg responses</th>
+            <th class="num">Polls</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-05</td>
+          <td class="num">1,907.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-08</td>
+          <td class="num">1,727.4</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-12</td>
+          <td class="num">1,553.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-15</td>
+          <td class="num">1,510.6</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-19</td>
+          <td class="num">1,479.0</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-22</td>
+          <td class="num">1,354.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-26</td>
+          <td class="num">1,284.1</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-01-29</td>
+          <td class="num">1,292.7</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-02-02</td>
+          <td class="num">1,233.1</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-02-05</td>
+          <td class="num">1,151.1</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-02-09</td>
+          <td class="num">1,136.7</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-02-12</td>
+          <td class="num">1,101.6</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-02-16</td>
+          <td class="num">1,007.1</td>
+          <td class="num">8</td>
+        </tr>
+
+        <tr>
+          <td>prarambh</td>
+          <td>2026-02-19</td>
+          <td class="num">1,013.6</td>
+          <td class="num">8</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-05</td>
+          <td class="num">966.1</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-08</td>
+          <td class="num">876.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-12</td>
+          <td class="num">790.4</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-15</td>
+          <td class="num">762.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-19</td>
+          <td class="num">759.7</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-22</td>
+          <td class="num">752.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-26</td>
+          <td class="num">724.0</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-01-29</td>
+          <td class="num">723.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-02-02</td>
+          <td class="num">685.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-02-05</td>
+          <td class="num">629.1</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-02-09</td>
+          <td class="num">661.4</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-02-12</td>
+          <td class="num">658.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-02-16</td>
+          <td class="num">629.6</td>
+          <td class="num">8</td>
+        </tr>
+
+        <tr>
+          <td>parichay</td>
+          <td>2026-02-19</td>
+          <td class="num">618.6</td>
+          <td class="num">8</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-05</td>
+          <td class="num">1,256.7</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-08</td>
+          <td class="num">1,058.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-12</td>
+          <td class="num">1,001.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-15</td>
+          <td class="num">947.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-19</td>
+          <td class="num">919.4</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-22</td>
+          <td class="num">921.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-26</td>
+          <td class="num">870.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-01-29</td>
+          <td class="num">880.7</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-02-02</td>
+          <td class="num">836.0</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-02-05</td>
+          <td class="num">793.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-02-09</td>
+          <td class="num">804.0</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-02-12</td>
+          <td class="num">807.6</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-02-16</td>
+          <td class="num">757.2</td>
+          <td class="num">8</td>
+        </tr>
+
+        <tr>
+          <td>pravesh</td>
+          <td>2026-02-19</td>
+          <td class="num">724.0</td>
+          <td class="num">8</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-05</td>
+          <td class="num">1,432.6</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-08</td>
+          <td class="num">1,286.0</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-12</td>
+          <td class="num">1,170.1</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-15</td>
+          <td class="num">1,135.6</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-19</td>
+          <td class="num">1,166.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-22</td>
+          <td class="num">1,138.0</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-26</td>
+          <td class="num">1,049.9</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-01-29</td>
+          <td class="num">1,077.0</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-02-02</td>
+          <td class="num">1,056.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-02-05</td>
+          <td class="num">1,027.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-02-09</td>
+          <td class="num">1,001.3</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-02-12</td>
+          <td class="num">983.1</td>
+          <td class="num">7</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-02-16</td>
+          <td class="num">1,006.8</td>
+          <td class="num">8</td>
+        </tr>
+
+        <tr>
+          <td>pravin</td>
+          <td>2026-02-19</td>
+          <td class="num">999.6</td>
+          <td class="num">8</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+  <script>
+    (function () {
+      var chartData = {"labels": ["W1 (Jan 05\u2013Jan 11)", "W2 (Jan 12\u2013Jan 18)", "W3 (Jan 19\u2013Jan 25)", "W4 (Jan 26\u2013Feb 01)", "W5 (Feb 02\u2013Feb 08)", "W6 (Feb 09\u2013Feb 15)", "W7 (Feb 16\u2013Feb 22)"], "datasets": [{"label": "Prarambh", "data": [1817.4, 1531.9, 1416.6, 1288.4, 1192.1, 1119.2, 1010.4], "borderColor": "#3498db", "backgroundColor": "#3498db20", "tension": 0.2, "fill": false}, {"label": "Parichay", "data": [921.2, 776.6, 756.3, 724.0, 657.5, 660.2, 624.1], "borderColor": "#2ecc71", "backgroundColor": "#2ecc7120", "tension": 0.2, "fill": false}, {"label": "Pravesh", "data": [1157.8, 974.9, 920.4, 875.5, 815.0, 805.8, 740.6], "borderColor": "#e74c3c", "backgroundColor": "#e74c3c20", "tension": 0.2, "fill": false}, {"label": "Pravin", "data": [1359.3, 1152.8, 1152.4, 1063.4, 1041.8, 992.2, 1003.2], "borderColor": "#9b59b6", "backgroundColor": "#9b59b620", "tension": 0.2, "fill": false}]};
+      if (chartData.labels.length === 0) return;
+      var ctx = document.getElementById('chartWeekOverWeek');
+      if (!ctx) return;
+      new Chart(ctx.getContext('2d'), {
+        type: 'line',
+        data: chartData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top' }
+          },
+          scales: {
+            x: {
+              ticks: { maxRotation: 45, minRotation: 45, maxTicksLimit: 14 }
+            },
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'Avg responses' }
+            }
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
